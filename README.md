@@ -201,7 +201,15 @@ Now, add this method to the run method, and pass it the lines we got in the ```f
   * Use a gem jazz up the look of our app with <a href="https://github.com/miketierney/artii">ascii text</a> or <a href="https://rubygems.org/gems/colorize/versions/0.8.1">colors</a>.
   
 ## Final Steps
-* Prepare a video demo describing how a user would interact with your working project.
+* Prepare a demo video describing how a user would interact with your working project.
+    * The Video should:
+      * Have an overview of your project.(2 minutes max)
+* Prepare a presentation to follow your video.(3 minutes max)      
+    * Your presentation should:  
+      * Describe something you struggled to build, and show us how you ultimately implemented it in your code.  
+      * Discuss 3 things you learned in the process of working on this project.
+      * Address, if anything, what you would change or add to what you have today?
+      * Present any code you would like to highlight.
 * OPTIONAL, BUT RECOMMENDED: Write a blog post about the project and process.
  
 
