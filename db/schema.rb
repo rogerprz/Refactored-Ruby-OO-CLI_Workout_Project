@@ -13,10 +13,11 @@
 ActiveRecord::Schema.define(version: 5) do
 
   create_table "exercises", force: :cascade do |t|
-    t.string  "name"
+    t.string "name"
     t.integer "sets"
     t.integer "reps"
     t.integer "duration"
+    t.string "category"
   end
 
   create_table "exercisetoworkouts", force: :cascade do |t|
@@ -29,14 +30,15 @@ ActiveRecord::Schema.define(version: 5) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string  "first_name"
-    t.string  "last_name"
+    t.string "first_name"
+    t.string "last_name"
     t.integer "weight"
   end
 
   create_table "workouts", force: :cascade do |t|
-    t.string  "name"
+    t.string "name"
     t.integer "duration"
+    t.text "description"
   end
 
 end

@@ -4,6 +4,7 @@ class CreateWorkout < ActiveRecord::Migration[4.2]
   create_table :workouts do |t|
     t.string :name
     t.integer :duration
+    t.text :description
     end
   end
 end

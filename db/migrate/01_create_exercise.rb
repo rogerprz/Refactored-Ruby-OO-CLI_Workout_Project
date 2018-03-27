@@ -6,6 +6,7 @@ class CreateExercise < ActiveRecord::Migration[4.2]
     t.integer :sets
     t.integer :reps
     t.integer :duration
+    t.string :category
     end
   end
 end
