@@ -1,4 +1,4 @@
-class Users < ActiveRecord::Migration[4.2]
+class Users < ActiveRecord::Base
 
 
 end
