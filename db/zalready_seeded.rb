@@ -5,6 +5,21 @@
 # 10.times do
 # User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, weight: Random.rand(80..300, category: ""), category: "")
 # end
+# #
+# Workouts.create(name: "Ultimate Ab Workout" , duration: 15, description: "Works out your obliques and upper and lower abs. For when you only have 15 minutes to get it done. ")
+# Workouts.create(name: "Complete Upper Body Workout", duration: 30, description: " Concentrates on your chest, shoulders, and back." )
+# Workouts.create(name: "Do You Even Squat", duration:45, description:"Different variations of squats, lunges, and gluteus maximus workouts" )
+# Workouts.create(name: "SpongeBob Anchor Arms", duration: 25, description: "You've been spongebob anchor arms. Now do the workout that helped him achieve those amazing resuls!!!" )
+# Workouts.create(name: "Gain Hops Workout", duration: 20 , description: "Contains multiple HIIT to help you get that extra inch when hooping." )
+# Workouts.create(name: "Summer Bod in 6 weeks", duration:45, description: "Full body workout alternating different days to get ready for that summer." )
+# Workouts.create(name: "30 Minute Arms", duration: 32, description: "Got 32 minutes? Get buff arms fast.")
+# Workouts.create(name: "Body Pump", duration: 20, description: "Get your body moving with easy cardio execises!")
+# Workouts.create(name: "Action Hero Workout", duration: 45, description: "Go from zero to hero with this intense full body workout.")
+# Workouts.create(name: "Baby got back?", duration: 32, description: "Get your back muscles twerking with some wholesome back execises.")
+# Workouts.create(name: "Shoulder Tone", duration: 32, description: "Build good form with these shoulder exercises.")
+#
+
+
 
 #adding data to Exercisess
 # Exercises.create(name: "Barbell Hack Squats", reps: 10 , sets: 3, category: "Legs")
