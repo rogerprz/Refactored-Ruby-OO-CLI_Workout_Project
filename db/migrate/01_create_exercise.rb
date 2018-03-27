@@ -7,6 +7,8 @@ class CreateExercise < ActiveRecord::Migration[4.2]
     t.integer :reps
     t.integer :duration
     t.string :category
+    t.integer :workout_id
+    
     end
   end
 end
