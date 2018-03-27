@@ -1,6 +1,6 @@
-class CreateProfiles < ActiveRecord::Migration[5.1]
+class CreateProfile < ActiveRecord::Migration[4.2]
   def change
-  create_table :profiles do |t|
+  create_table :profile do |t|
       t.string :email
       t.integer :library_id
       t.boolean :status

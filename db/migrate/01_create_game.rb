@@ -1,6 +1,6 @@
-class CreateGames < ActiveRecord::Migration[5.1]
+class CreateGame < ActiveRecord::Migration[4.2]
   def change
-  create_table :games do |t|
+  create_table :game do |t|
       t.string :title
       t.string :release_date
       t.string :ESRB

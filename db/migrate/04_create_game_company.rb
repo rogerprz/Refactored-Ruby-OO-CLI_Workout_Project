@@ -1,6 +1,6 @@
-class CreateGameCompany < ActiveRecord::Migration[5.1]
+class CreateGameCompany < ActiveRecord::Migration[4.2]
   def change
-  create_table :game_companies do |t|
+  create_table :game_company do |t|
       t.string :name
       t.string :founded
       t.string :headquarters
