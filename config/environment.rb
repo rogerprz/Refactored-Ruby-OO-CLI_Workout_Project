@@ -1,3 +1,4 @@
+require 'faker'
 require 'bundler'
 Bundler.require
 
