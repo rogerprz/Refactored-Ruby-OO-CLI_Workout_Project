@@ -1,7 +1,10 @@
 class User < ActiveRecord::Base
-  has_many :workouts
-  has_many :exercises, through: :workouts
   has_many :favorites
+  has_many :workouts, through: :favorites
+
+
+
+
 
 
 end
