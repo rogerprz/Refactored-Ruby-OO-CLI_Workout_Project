@@ -1,0 +1,15 @@
+# put info here
+require 'faker'
+require_relative "../config/environment.rb"
+
+#adding data to users
+first = Faker::Name.first_name
+last = Faker::Name.last_name
+weight = Random.rand(80..300)
+
+
+
+
+10.times do
+User.create(first_name: first , last_name: last, weight: weight)
+end
