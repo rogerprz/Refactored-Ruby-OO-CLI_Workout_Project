@@ -15,8 +15,12 @@ class User < ActiveRecord::Base
 
   end
 
+  def remove_workout_from_favorites
+    
+  end
+
   #views exercises of a given workout
-  def see_favorite_workout_exercises(workout_name)
+  def see_workout_exercises(workout_name)
     all_exercises = find_workout(workout_name).exercises
 
     all_exercises.each_with_index do |exercises, index|
@@ -25,10 +29,26 @@ class User < ActiveRecord::Base
     return nil
   end
 
+
+#FIX find_favorite workout first below then come back to this one.
+  # def see_favorite_workout_exercises(workout_name)
+  #   all_exercises = find_favorite_workout(workout_name).exercises
+  #
+  #   all_exercises.each_with_index do |exercises, index|
+  #     puts "#{index + 1}." + exercises.name
+  #   end
+  #   return nil
+  # end
+
   #finds a specific workout
   def find_workout(workout_name)
     found_workout = Workout.find_by name: workout_name
   end
+
+# Need to figure out how to call self
+  # def find_favorite_workout(workout_name)
+  #   found_workout = self.workouts.find_by name: workout_name
+  # end
 
   #adds new workout to favorites
   def add_workout_to_favorites(workout_name)
