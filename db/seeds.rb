@@ -1,7 +1,6 @@
 # put info here
 require_relative "../config/environment.rb"
 
-
 10.times do
 User.find_or_create_by(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, weight: Random.rand(80..300))
 end
@@ -116,6 +115,123 @@ Exercise.find_or_create_by(name: "Tricep Dips", reps: 20, sets: 3, category: "Ar
 Exercise.find_or_create_by(name: "Wall Pushup", reps: 10, sets: 5, category: "Arms")
 # #
 
+
+def arms
+  work = Workout.find(4) #SpongeBob workout
+  work30 = Workout.find(7) #30 min arms
+  category_only = Exercise.all.select do |exercise|
+        exercise.category == "Arms"
+      end
+  work.exercises << category_only
+  work30.exercises << category_only
+
+end
+
+
+def abs
+  work = Workout.find(1) #Ultimate ab workout
+  category_only = Exercise.all.select do |exercise|
+        exercise.category == "Abs"
+      end
+  work.exercises << category_only
+end
+
+
+def shoulders
+  work = Workout.find(11) #shoulder
+  category_only = Exercise.all.select do |exercise|
+        exercise.category == "Shoulders"
+      end
+  work.exercises << category_only
+end
+
+def back
+  work = Workout.find(10) #shoulder
+  category_only = Exercise.all.select do |exercise|
+        exercise.category == "Back"
+      end
+  work.exercises << category_only
+
+end
+def upper_body
+  work = Workout.find(2) #upper body workout
+  chest_only = Exercise.all.select do |exercise|
+      exercise.category == "Chest"
+  end
+  back_only = Exercise.all.select do |exercise|
+      exercise.category == "Back"
+  end
+  all = chest_only + back_only
+  work.exercises << all
+end
+
+def cardio
+  work = Workout.find(8)
+  category_only = Exercise.all.select do |exercise|
+        exercise.category == "Cardio"
+      end
+  work.exercises << category_only
+
+end
+
+def gain_hops
+  work = Workout.find(5) #upper body workout
+  legs_only = Exercise.all.select do |exercise|
+      exercise.category == "Legs"
+  end
+  cardio_only = Exercise.all.select do |exercise|
+      exercise.category == "Cardio"
+  end
+  all = legs_only + cardio_only
+  work.exercises << all
+
+end
+def squat
+  work = Workout.find(3)
+  category_only = Exercise.all.select do |exercise|
+        exercise.category == "Legs"
+      end
+  work.exercises << category_only
+
+end
+
+def action_hero
+  work = Workout.find(9) #
+  legs_only = Exercise.all.select do |exercise|
+      exercise.category == "Legs"
+  end
+  cardio_only = Exercise.all.select do |exercise|
+      exercise.category == "Cardio"
+  end
+  chest_only = Exercise.all.select do |exercise|
+      exercise.category == "Chest"
+  end
+  all = legs_only + cardio_only + chest_only
+  work.exercises << all
+end
+
+def summer_bod
+  work = Workout.find(7) #
+  abs_only = Exercise.all.select do |exercise|
+      exercise.category == "Abs"
+  end
+  cardio_only = Exercise.all.select do |exercise|
+      exercise.category == "Cardio"
+  end
+  all = abs_only + cardio_only
+  work.exercises << all
+end
+
+arms
+abs
+shoulders
+back
+upper_body
+cardio
+gain_hops
+squat
+action_hero
+summer_bod
 
 
 
