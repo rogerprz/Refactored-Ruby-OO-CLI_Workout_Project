@@ -117,9 +117,6 @@ Exercise.find_or_create_by(name: "Wall Pushup", reps: 10, sets: 5, category: "Ar
 # #
 
 
-w = Workout.find_by(name: "Ultimate Ab Workout")
-e = Exercise.first ()
-w.exercises <<
 
 
 
