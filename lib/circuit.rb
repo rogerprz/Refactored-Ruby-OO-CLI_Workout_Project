@@ -1,4 +1,4 @@
-class Ex_to_workout < ActiveRecord::Base
+class Circuit < ActiveRecord::Base
   belongs_to :exercise
   belongs_to :workout
 

@@ -12,37 +12,34 @@
 
 ActiveRecord::Schema.define(version: 5) do
 
+  create_table "circuits", force: :cascade do |t|
+    t.integer "exercise_id"
+    t.integer "workout_id"
+  end
+
   create_table "exercises", force: :cascade do |t|
     t.string "name"
     t.integer "sets"
     t.integer "reps"
     t.integer "duration"
     t.string "category"
-    t.integer "workout_id"
-  end
-
-  create_table "exercisetoworkouts", force: :cascade do |t|
-    t.integer "ex_id"
-    t.integer "wo_id"
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.integer "ex_id"
-    t.integer "wo_id"
+    t.integer "user_id"
+    t.integer "workout_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.integer "weight"
-    t.integer "workout_id"
   end
 
   create_table "workouts", force: :cascade do |t|
     t.string "name"
     t.integer "duration"
     t.text "description"
-    t.integer "workout_id"
   end
 
 end

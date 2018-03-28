@@ -1,6 +1,6 @@
 class Workout < ActiveRecord::Base
-  has_many :exercise_to_workout
-  has_many :exercises, through: :exercise_to_workout
+  has_many :circuits
+  has_many :exercises, through: :circuits
   has_many :favorites
   has_many :users, through: :favorites
 
@@ -48,7 +48,7 @@ class Workout < ActiveRecord::Base
   end
 
   def self.add_exercise(workout_id, ex_id)
-    join_workout = Ex_to_workout.create(workout_id, ex_id)
+    join_workout = Exercise_to_workout.create(workout_id, ex_id)
     self.exercises << exercise
 
   end

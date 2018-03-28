@@ -5,7 +5,6 @@ class CreateWorkout < ActiveRecord::Migration[4.2]
     t.string :name
     t.integer :duration
     t.text :description
-    t.integer :workout_id
     end
   end
 end
