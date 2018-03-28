@@ -41,7 +41,10 @@ class User < ActiveRecord::Base
     User.find_or_create_by(first_name: first_name, last_name: last_name, weight: weight)
   end
 
-
+  #creates new workout
+  def create_workout(name, duration, description)
+    Workout.find_or_create_by(name: name, duration: duration, description: description)
+  end
 
 
 end
