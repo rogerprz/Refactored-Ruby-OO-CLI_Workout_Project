@@ -3,7 +3,8 @@ require_relative '../config/environment.rb'
 
 
 
-run
+welcome
+input = gets.chomp
 
 
 
