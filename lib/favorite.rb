@@ -6,10 +6,4 @@ class Favorite < ActiveRecord::Base
 
 
 
-
-  def method_name
-
-  end
-
-
 end
