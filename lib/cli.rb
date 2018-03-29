@@ -30,9 +30,7 @@ def new_or_return(choice)
       new_user
     when "r"
       puts "Welcome Back"
-      puts "Please enter your id or first name"
-      r_input = gets.chomp
-      returning_user(r_input)
+      returning_user
     when "e"
       puts "Thank you for stopping by. Goodbye!"
         abort
@@ -62,41 +60,35 @@ end
 #give returning users options access
 #give new users option to create new
 #end if they pressed e
-def verify_user(r_input)
-  case r_input
-    when Integer
-      user_id = User.find(r_input)
-      if user_id.id == r_input
-        puts "WElcome name person"
-      else
-        puts "Not a valid id"
-        try_again = gets.chomp
-        verify_user(try_again)
-      end
+def verify_user(lookup, pass, verify)
+  case pass
+    when verify
+        puts "Welcome back #{lookup.first_name}"
+    when "e"
+      "Thank you for stopping by. Goodbye!!!"
+      abort
     else
-      puts "Not a valid input:"
-      puts
+        puts "password does not match, please try again."
+        try_again = gets.chomp
+        verify_user(lookup, try_again, verify)
+    end
 
 end
-def returning(r_input)
-  number = User.find(r_input)
-  fname = User.find_by(first_name: r_input)
-  if r_input == r_input.to_i && r_input == number.id
-    user = User.find(r_input)
 
-    print " Great to have you back #{user.first_name} #{user.last_name}"
-  elsif r_input == r_input.to_s
-    user = User.find_by(first_name: r_input)
-    puts "Please provide your last name #{user}."
-    last = gets.chomp
-    full = User.find_by(first_name: r_input, last_name: last)
-    puts "Great to have you back #{full.first_name} #{full.last_name}"
-  else
-    puts "That is not a valid option."
-
-  end
+def returning_user
+  puts "Please enter your first name: "
+  first = gets.chomp
+  puts "Please enter your last name. Example: Smith. "
+  last = gets.chomp
+  full = "#{first} #{last}"
+  lookup = User.find_by(first_name: first, last_name: last)
+  verify = lookup.password
+  puts "Please enter your Password: "
+  pass = gets.chomp
+  verify_user(lookup, pass, verify)
 
 end
+
 
 
 def options_screen
@@ -123,13 +115,13 @@ end
   input = gets.chomp
   new_or_return(input)
   options_screen
+  
 
 
 
   # new_user
   # returning_user
 
-end
 
 
 
