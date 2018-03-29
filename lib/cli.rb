@@ -66,7 +66,7 @@ end
 
 
 def user_info(first, last, pass)
-  User.where(first_name: first, last_name: last, password: pass)
+  User.find_or_initialize_by(first_name: first, last_name: last, password: pass)
 end
 
 def returning_user
@@ -82,6 +82,7 @@ def returning_user
 
   verify_person(first, last, pass)
   user_info(first, last, pass)
+  # binding.pry
 end
 
 def print_try_again
@@ -121,7 +122,7 @@ def options_screen
   puts "5. Drop/Delete a Workout from your favorites"
   puts "6. Create your own Workout Program."
   puts "7. Add exercises to your Workout."
-  puts "8. Remove exercises from your Workout."
+  # puts "8. Remove exercises from your Workout."
   stars
   puts "Choose an option from 1 - 8, e = Exit"
   stars
@@ -217,23 +218,24 @@ def verify_workout_name(id, input, user)
   where = Workout.where(id: id, name: input)
   # binding.pry
   case where
-  when nil
-    print_verify_workout_error
-    input =gets.chomp
-    verify_workout_name(id, input, user)
-  when []
-    print_verify_workout_error
-    input =gets.chomp
-    verify_workout_name(id, input, user)
-  when "e"
-    goodbye
-    abort
-  else
-    user.workouts << where
-    dash_line
-    puts "Workout Verfied. Added to your favorites"
-    puts "#{where.name}."
-    dash_line
+    when nil
+      print_verify_workout_error
+      input =gets.chomp
+      verify_workout_name(id, input, user)
+    when []
+      print_verify_workout_error
+      input =gets.chomp
+      verify_workout_name(id, input, user)
+    when "e"
+      goodbye
+      abort
+    else
+      binding.pry
+      user.workouts << where
+      dash_line
+      puts "Workout Verfied. Added to your favorites"
+      puts "#{where.name}."
+      dash_line
   end
 end
 
