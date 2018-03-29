@@ -44,34 +44,73 @@ def new_or_return(choice)
 
 end
 
-def verify_user(lookup, pass, verify)
-  case pass
-    when verify
-        puts "Welcome back #{lookup.first_name}"
-    when "e"
-      "Thank you for stopping by. Goodbye!!!"
-      abort
-    else
-        puts "password does not match, please try again."
-        try_again = gets.chomp
-        verify_user(lookup, try_again, verify)
-    end
 
+
+# def verify_password(full, lookup)
+#
+#   case full
+#
+#   when "#{lookup.first_name} #{lookup.last_name}"
+#     puts "Valid full name."
+#     abort
+#   when "e"
+#     abort
+#   else
+#     puts "Please try again."
+#     puts "Could not verify your name:"
+#     puts "Enter first name: "
+#     first = gets.chomp
+#     puts "Enter last name: "
+#     last = gets.chomp
+#     full ="#{first} #{last}"
+#     lookup = User.find_by(first_name: first,last_name: last)
+#     verify(full, lookup)
+#   end
+# end
+
+
+
+def verify_person(first, last, pass)
+  find = User.find_by(first_name: first, last_name: last, password: pass)
+  case find
+    when nil
+      puts "Please try again."
+      puts "Could not verify 1 or more inputs:"
+      puts "Enter first name: "
+      first = gets.chomp
+      puts "Enter last name: "
+      last = gets.chomp
+      puts "Please enter your Password: "
+      pass = gets.chomp
+      # find = User.find_by(first_name: first, last_name: last)
+      verify_person(first,last, pass)
+    else
+      puts "Valid full name."
+  end
 end
+
+
 
 def returning_user
   puts "Please enter your first name: "
   first = gets.chomp
   puts "Please enter your last name. Example: Smith. "
   last = gets.chomp
-  full = "#{first} #{last}"
-  lookup = User.find_by(first_name: first, last_name: last)
-  verify = lookup.password
   puts "Please enter your Password: "
   pass = gets.chomp
-  verify_user(lookup, pass, verify)
+
+  # full = "#{first} #{last}"
+  # lookup = User.find_by(first_name: first, last_name: last)
+  verify_person(first, last, pass)
+  # verify_person(full,lookup)
+  # user = User.find_by(first_name: first, last_name: last)
+
+  # verify = user.password
+  # verify_password(pass, verify)
 
 end
+
+
 
 def new_user
   puts "Welcome New User! Please input your first name:"
@@ -118,7 +157,7 @@ end
 
 
 # def run
-
+  #
   welcome
   input = gets.chomp
   new_or_return(input)
@@ -134,4 +173,19 @@ end
 
 
 
+#ICEBOX
+
+# def verify_password(pass, verify)
+#   case pass
+#     when verify
+#         puts "Welcome back #{lookup.first_name}"
+#     when "e"
+#       "Thank you for stopping by. Goodbye!!!"
+#       abort
+#     else
+#         puts "password does not match, please try again."
+#         try_again = gets.chomp
+#         verify_user(try_again, verify)
+#     end
 #
+# end
