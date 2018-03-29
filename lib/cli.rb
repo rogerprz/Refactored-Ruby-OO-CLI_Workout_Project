@@ -23,7 +23,8 @@ def welcome
 end
 
 
-def new_or_return(choice)
+def new_or_return
+  choice = gets.chomp
   case choice
     when "n"
       puts "Welcome new user"
@@ -183,9 +184,7 @@ def options
       puts "Please try again: "
       options
 
-
   end
-
 end
 
 
@@ -193,8 +192,7 @@ end
 def run
 
   welcome
-  input = gets.chomp
-  new_or_return(input)
+  new_or_return
   options
 
 end
