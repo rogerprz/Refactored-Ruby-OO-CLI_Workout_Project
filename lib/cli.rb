@@ -74,6 +74,46 @@ def verify_user(lookup, pass, verify)
     end
 
 end
+<<<<<<< HEAD
+=======
+
+
+def new_user
+  puts "Welcome New User! Please input your first name:"
+    first_name = gets.chomp
+        puts "Hello #{first_name}! Please input your last name:"
+    last_name = gets.chomp
+        puts "Please input a new password:"
+    password = gets.chomp
+        puts "Please verify password:"
+    password_verification = gets.chomp
+       until password_verification == password
+         puts "Not the same password! Please try again:"
+
+         password = gets.chomp
+             puts "Please re-verify password:"
+         password_verification = gets.chomp
+       end
+    puts "Welcome #{first_name} #{last_name}."
+    User.create(first_name: first_name, last_name: last_name, password: password)
+end
+
+def returning(r_input)
+  number = User.find(r_input)
+  fname = User.find_by(first_name: r_input)
+  if r_input == r_input.to_i && r_input == number.id
+    user = User.find(r_input)
+
+    print " Great to have you back #{user.first_name} #{user.last_name}"
+  elsif r_input == r_input.to_s
+    user = User.find_by(first_name: r_input)
+    puts "Please provide your last name #{user}."
+    last = gets.chomp
+    full = User.find_by(first_name: r_input, last_name: last)
+    puts "Great to have you back #{full.first_name} #{full.last_name}"
+  else
+    puts "That is not a valid option."
+>>>>>>> 7cae84495cc6a4dfd08aa690c71ed9d90e8e6404
 
 def returning_user
   puts "Please enter your first name: "
