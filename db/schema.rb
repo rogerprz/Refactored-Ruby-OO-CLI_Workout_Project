@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 5) do
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.integer "weight"
+    t.string "password"
   end
 
   create_table "workouts", force: :cascade do |t|

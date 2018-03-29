@@ -11,40 +11,74 @@ def stars
   end
   puts "*"
 end
+
 def welcome
-print stars
-puts "***WELCOME TO FLATIRON GET FIT CLI***"
-puts "Are you a new or returning user?"
-puts "Please select from the following options:"
-puts "(n = new, r = returning, e = exit)"
-print stars
-print "Pick an option: "
+  print stars
+  puts "***WELCOME TO FLATIRON GET FIT CLI***"
+  puts "Are you a new or returning user?"
+  puts "Please select from the following options:"
+  puts "(n = new, r = returning, e = exit)"
+  print stars
+  print "Pick an option: "
 end
 
-def new_or_returning(choice)
-  while choice.downcase != "n" || !choice.downcase != "e" || !choice.downcase != "r"
-    if choice.downcase == "n"
+
+def new_or_return(choice)
+  case choice
+    when "n"
+      puts "Welcome new user"
       new_user
-    elsif choice.downcase == "r"
-      puts "Welcome back! Please provide your id"
-      puts "if you can't rememeber your id, please provide your first name."
+    when "r"
+      puts "Welcome Back"
+      puts "Please enter your id or first name"
       r_input = gets.chomp
-    elsif choice.downcase == "e"
+      returning_user(r_input)
+    when "e"
       puts "Thank you for stopping by. Goodbye!"
-      break
+        abort
     else
-      puts "Not a valid input. Please try again."
+
+      puts "Not a valid input. Please try again: "
+      puts " *** r = return, n = new, e = Exit ***  "
+      choice = gets.chomp
+      new_or_return(choice)
     end
-    choice = gets.chomp
-  end
+
 end
 
-
+# def verify_user(id)
+#   user = User.find(id)
+#   name = User.find_by(first_name: id)
+#   case id
+#   when Integer
+#       print "What would you like to do #{user.first_name}."
+#     when
+#
+#     else
+#     puts "Not a valid id, Please try again"
+#   end
+# end
 
 #give returning users options access
 #give new users option to create new
 #end if they pressed e
-def returning_user(r_input)
+def verify_user(r_input)
+  case r_input
+    when Integer
+      user_id = User.find(r_input)
+      if user_id.id == r_input
+        puts "WElcome name person"
+      else
+        puts "Not a valid id"
+        try_again = gets.chomp
+        verify_user(try_again)
+      end
+    else
+      puts "Not a valid input:"
+      puts
+
+end
+def returning(r_input)
   number = User.find(r_input)
   fname = User.find_by(first_name: r_input)
   if r_input == r_input.to_i && r_input == number.id
@@ -63,39 +97,7 @@ def returning_user(r_input)
   end
 
 end
-def new_user
 
-  case
-  puts "Welcome New User! What is your first name?"
-
-  #make sure it is a string
-  first_name = gets.chomp
-
-  result = case first_name
-  when String
-  puts "Hi #{first_name}! What is your last name?"
-  when Fixnum
-  puts "Invalid Name! Please provide a real name."
-  else
-  puts 'Invalid Name! Please provide a real name.'
-
-
-  end
-
-
-  #make sure string
-  puts "Hi #{first_name}! What is your last name?"
-  last_name = gets.chomp
-  until last_name.class == string
-  puts "Invalid Name! Please provide a real name."
-
-
-
-  User.find_or_create_by(first_name: first_name, last_name: last_name)
-
-  puts "Welcome #{first_name}"
-
-end
 
 def options_screen
   stars
@@ -119,7 +121,7 @@ end
 
   welcome
   input = gets.chomp
-  new_or_returning(input)
+  new_or_return(input)
   options_screen
 
 
@@ -127,7 +129,7 @@ end
   # new_user
   # returning_user
 
-# end
+end
 
 
 
