@@ -217,7 +217,8 @@ def verify_workout_name(id, input, user)
   end
 
   where = Workout.where(id: id, name: input)
-  case find
+  binding.pry
+  case where
   when nil
     print_verify_workout_error
     input =gets.chomp
@@ -230,10 +231,10 @@ def verify_workout_name(id, input, user)
     goodbye
     abort
   else
-    user.workouts << find
+    user.workouts << where
     dash_line
     puts "Workout Verfied. Added to your favorites"
-    puts "#{find.name}."
+    puts "#{where.name}."
     dash_line
   end
 end
