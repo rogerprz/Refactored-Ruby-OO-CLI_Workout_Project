@@ -215,13 +215,14 @@ def verify_workout_name(input, user)
     abort
   end
 
-  find = Workout.find_by(name: input)
+  where = Workout.where(name: input)
   case find
   when nil
-    dash_line
-    puts "We don't have that workout available. "
-    puts "Please select once more."
-    print_workouts
+    print_verify_workout_error
+    input =gets.chomp
+    verify_workout_name(input, user)
+  when []
+    print_verify_workout_error
     input =gets.chomp
     verify_workout_name(input, user)
   when "e"
@@ -237,16 +238,22 @@ def verify_workout_name(input, user)
 end
 
 def dash_line
-  puts "-------------------------------------------"
+  puts "-----------------------------------------"
+
+end
+def print_verify_workout_error
+  dash_line
+  puts "We don't have that workout available. "
+  puts "Please select once more."
+  print_workouts
 
 end
 
 
-
 def print_workouts
   a = Workout.all
-  a.each_with_index do |workout, index|
-    puts "#{index + 1}. #{workout.name}"
+  a.each do |workout|
+    puts "#{workout.id}. #{workout.name}"
     puts "--- Duration: #{workout.duration}"
 
   end
