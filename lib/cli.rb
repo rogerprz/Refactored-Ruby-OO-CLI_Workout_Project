@@ -5,6 +5,8 @@ require_relative '../lib/models/user.rb'
 require_relative '../lib/models/workout.rb'
 
 
+
+
 def stars
   35.times do
     print "*"
@@ -21,7 +23,6 @@ def welcome
   print stars
   print "Pick an option: "
 end
-
 
 def new_or_return
   choice = gets.chomp
@@ -45,51 +46,6 @@ def new_or_return
 
 end
 
-
-
-
-def user_info(first, last, pass)
-  User.find_by(first_name: first, last_name: last, password: pass)
-
-end
-
-def verify_person(first, last, pass)
-  find = User.find_by(first_name: first, last_name: last, password: pass)
-  case find
-    when nil
-      puts "Please try again."
-      puts "Could not verify 1 or more inputs:"
-      puts "Enter first name: "
-      first = gets.chomp
-      puts "Enter last name: "
-      last = gets.chomp
-      puts "Please enter your Password: "
-      pass = gets.chomp
-      # find = User.find_by(first_name: first, last_name: last)
-      verify_person(first,last, pass)
-    else
-      user_info(first, last, pass)
-      puts "Valid full name."
-  end
-end
-
-
-
-def returning_user
-  puts "Please enter your first name: "
-  first = gets.chomp
-  puts "Please enter your last name. Example: Smith. "
-  last = gets.chomp
-  puts "Please enter your Password: "
-  pass = gets.chomp
-
-  verify_person(first, last, pass)
-
-
-end
-
-
-
 def new_user
   puts "Welcome New User! Please input your first name:"
     first_name = gets.chomp
@@ -111,7 +67,42 @@ def new_user
 end
 
 
+def user_info(first, last, pass)
+  User.find_by(first_name: first, last_name: last, password: pass)
+end
 
+def returning_user
+  puts "Please enter your first name: "
+  first = gets.chomp
+  puts "Please enter your last name. Example: Smith. "
+  last = gets.chomp
+  puts "Please enter your Password: "
+  pass = gets.chomp
+
+  verify_person(first, last, pass)
+  user_info(first, last, pass)
+end
+
+
+def verify_person(first, last, pass)
+  find = User.find_by(first_name: first, last_name: last, password: pass)
+  case find
+    when nil
+      puts "Please try again."
+      puts "Could not verify 1 or more inputs:"
+      puts "Enter first name: "
+      first = gets.chomp
+      puts "Enter last name: "
+      last = gets.chomp
+      puts "Please enter your Password: "
+      pass = gets.chomp
+      # find = User.find_by(first_name: first, last_name: last)
+      verify_person(first,last, pass)
+    else
+      # user_info(first, last, pass)
+      puts "Valid full name."
+  end
+end
 
 
 def options_screen
@@ -131,30 +122,8 @@ def options_screen
   stars
 end
 
-def print_workouts
-  a = Workout.all
-  a.each_with_index do |workout, index|
-    puts "#{index + 1}. #{workout.name.upcase}"
-    puts "--- Duration: #{workout.duration}"
 
-  end
-end
-
-def print_by_category(cat)
-  a = Exercise.where(category: cat)
-  a.each_with_index do |exercise, index|
-    puts "#{index + 1}. #{exercise.name.upcase}"
-    puts "--- Sets: #{exercise.sets}"
-    puts "--- Reps: #{exercise.reps}"
-    puts "--- Time: #{exercise.duration}"
-  end
-end
-
-
-
-
-
-def options(user_info)
+def options(user)
   options_screen
   input = gets.chomp
   case input
@@ -171,11 +140,26 @@ def options(user_info)
     when "3"
       print_workouts
       puts "Select a workout name: "
-      name = gets.chomp
-      verify_workout_name(input, user_info)
-
-
+      input = gets.chomp
+      # binding.pry
+      verify_workout_name(input, user)
+      user = user
+      options(user)
     when "4"
+      if user.workouts == [] || user.workouts == nil
+        dash_line
+        print "|  No Favorites found. Please add a workout to Favorites  |"
+        dash_line
+        options(user)
+      end
+      dash_line
+      user.workouts.each_with_index do |fav, index|
+        # binding.pry
+        puts "#{index+1}. #{fav.name}."
+      end
+      dash_line
+      user = user
+      options(user)
     when "5"
     when "6"
       puts "What is your Workout name?"
@@ -194,7 +178,7 @@ def options(user_info)
       print_workouts
       puts "What is the name of your workout?"
       workout_name = gets.chomp
-      verify_workout_name(workout_name)
+
       category_options_print
       puts "Pick which category:"
       category = gets.chomp
@@ -207,43 +191,77 @@ def options(user_info)
     else
       puts "Not a valid option lookup choice"
       puts "Please try again: "
-
-      options
+      options(user)
 
     end
 end
 
-def verify_workout_name(input, user_info)
+#if it already exists it add it again. need to fix no duplicates.
+def verify_workout_name(input, user)
+  # binding.pry
   if input == "e"
     goodbye
     abort
   end
+
   find = Workout.find_by(name: input)
   case find
   when nil
+    dash_line
     puts "We don't have that workout available. "
     puts "Please select once more."
     print_workouts
     input =gets.chomp
-    verify_workout_name(input)
+    verify_workout_name(input, user)
   when "e"
     goodbye
     abort
   else
-    user_info.workouts << find
+    user.workouts << find
+    dash_line
     puts "Workout Verfied. Added to your favorites"
+    puts "#{find.name}."
+    dash_line
+  end
+end
+
+def dash_line
+  print "----------------------------------------------------------"
+
+end
+
+
+
+def print_workouts
+  a = Workout.all
+  a.each_with_index do |workout, index|
+    puts "#{index + 1}. #{workout.name}"
+    puts "--- Duration: #{workout.duration}"
+
+  end
+end
+
+def print_by_category(cat)
+  a = Exercise.where(category: cat)
+  a.each_with_index do |exercise, index|
+    puts "#{index + 1}. #{exercise.name.upcase}"
+    puts "--- Sets: #{exercise.sets}"
+    puts "--- Reps: #{exercise.reps}"
+    puts "--- Time: #{exercise.duration}"
   end
 end
 
 
-
-def run
+def self.run
 
   welcome
-  new_or_return
-  options(user_info)
+
+  user = new_or_return
+  options(user)
 
 end
+
+
 
 def category_options_print
   puts "----OPTIONS---- "
