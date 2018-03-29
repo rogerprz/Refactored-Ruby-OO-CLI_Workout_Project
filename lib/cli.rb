@@ -8,18 +8,18 @@ require_relative '../lib/models/workout.rb'
 
 
 def stars
-  35.times do
-    print "*"
-  end
-  puts "*"
+  puts "****************************************"
 end
 
 def welcome
-  print stars
-  puts "***WELCOME TO FLATIRON GET FIT CLI***"
-  puts "Are you a new or returning user?"
+  puts stars
+  puts "|                                      |"
+  puts "|***WELCOME TO FLATIRON GET FIT CLI*** |"
+  puts "|                                      |"
+  dash_line
+  puts "|Are you a new or returning user?      |"
   puts "Please select from the following options:"
-  puts "(n = new, r = returning, e = exit)"
+  puts "| n = NEW || r = returning || e = exit |"
   print stars
   print "Pick an option: "
 end
@@ -31,16 +31,16 @@ def new_or_return
 
       new_user
     when "r"
-      puts "Welcome Back"
+      puts "|       Welcome Back        |"
       returning_user
     when "e"
-      puts "Thank you for stopping by. Goodbye!"
-        abort
+      dash_line
+      goodbye
+      dash_line
     else
-
+      dash_line
       puts "Not a valid input. Please try again: "
-      puts " *** r = return, n = new, e = Exit ***  "
-      choice = gets.chomp
+      puts "*** r = return, n = new, e = Exit ***"
       new_or_return
     end
 
@@ -72,10 +72,13 @@ def user_info(first, last, pass)
 end
 
 def returning_user
+  stars
   puts "Please enter your first name: "
   first = gets.chomp
+  stars
   puts "Please enter your last name: "
   last = gets.chomp
+  stars
   puts "Please enter your Password: "
   pass = gets.chomp
 
@@ -83,24 +86,27 @@ def returning_user
   user_info(first, last, pass)
 end
 
+def print_try_again
+  stars
+  puts "Please try again."
+  puts "Could not verify 1 or more inputs:"
+end
 
 def verify_person(first, last, pass)
   where = User.where(first_name: first, last_name: last, password: pass)
+  # binding.pry
   case where
     when nil
-      puts "Please try again."
-      puts "Could not verify 1 or more inputs:"
-      puts "Enter first name: "
-      first = gets.chomp
-      puts "Enter last name: "
-      last = gets.chomp
-      puts "Please enter your Password: "
-      pass = gets.chomp
-      # where = User.find_by(first_name: first, last_name: last)
-      verify_person(first,last, pass)
+      print_try_again
+      returning_user
+    when []
+      print_try_again
+      returning_user
     else
       # user_info(first, last, pass)
-      puts "Valid full name."
+      stars
+      puts "|       CONFIRMED IDENTITY      |"
+      stars
   end
 end
 
@@ -109,7 +115,8 @@ def options_screen
   stars
   puts "|        What would you like to do?         |"
   puts "| Please choose from the following options: |"
-  puts "1. See current workout programs."
+  dash_line
+  puts "1. See current workout programs.            |"
   puts "2. See list of exercises by category."
   puts "3. Add a Workout to your Favorites."
   puts "4. Review your Favorite workouts."
@@ -230,7 +237,7 @@ def verify_workout_name(input, user)
 end
 
 def dash_line
-  print "----------------------------------------------------------"
+  puts "-------------------------------------------"
 
 end
 
