@@ -46,6 +46,8 @@ end
 
 
 
+
+
 # def verify_password(full, lookup)
 #
 #   case full
@@ -133,7 +135,10 @@ def new_user
 end
 
 
-
+def goodbye
+  puts "Thank you for stopping by. Goodbye!!!"
+  abort
+end
 
 
 
@@ -150,19 +155,51 @@ def options_screen
   puts "6. Create your own Workout Program."
   puts "7. Add exercises to your Workout."
   stars
+  puts "Choose an option from 1 - 8, e = Exit"
+  stars
+end
+
+def options
+  options_screen
+  input = gets.chomp
+  case input
+    when "1"
+      # binding.pry
+      a = Workout.all
+      a.each_with_index do |workout, index|
+        puts "#{index + 1}. #{workout.name}"
+      end
+    when "2"
+    when "3"
+    when "4"
+    when "5"
+    when "6"
+    when "7"
+    when "8"
+    when "e"
+      goodbye
+    else
+      puts "Not a valid option lookup choice"
+      puts "Please try again: "
+      options
+
+
+  end
 
 end
 
 
 
+def run
 
-# def run
-  #
   welcome
   input = gets.chomp
   new_or_return(input)
-  options_screen
+  options
 
+end
+
+run
 
 
 

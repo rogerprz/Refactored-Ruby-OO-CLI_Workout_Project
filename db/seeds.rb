@@ -4,6 +4,7 @@ require_relative "../config/environment.rb"
 10.times do
 User.find_or_create_by(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, password: "password")
 end
+User.find_or_create_by(first_name: "q", last_name: "q", password: "q")
 
 Workout.find_or_create_by(name: "Ultimate Ab Workout" , duration: 15, description: "Works out your obliques and upper and lower abs. For when you only have 15 minutes to get it done. ")
 Workout.find_or_create_by(name: "Complete Upper Body Workout", duration: 30, description: " Concentrates on your chest, shoulders, and back." )
