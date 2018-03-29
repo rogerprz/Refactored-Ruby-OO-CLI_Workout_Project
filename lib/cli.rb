@@ -28,7 +28,7 @@ def new_or_return
   choice = gets.chomp
   case choice
     when "n"
-      puts "Welcome new user"
+
       new_user
     when "r"
       puts "Welcome Back"
@@ -131,12 +131,12 @@ def options(user)
       # binding.pry
       print_workouts
       sleep(3)
-      options
+      options(user)
     when "2"
       category_options_print
       cat = gets.chomp
-      print_by_category
-      options
+      print_by_category(cat)
+      options(user)
     when "3"
       print_workouts
       puts "Select a workout name: "
