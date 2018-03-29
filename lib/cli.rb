@@ -78,6 +78,28 @@ def verify_user(r_input)
       puts
 
 end
+
+
+def new_user
+  puts "Welcome New User! Please input your first name:"
+    first_name = gets.chomp
+        puts "Hello #{first_name}! Please input your last name:"
+    last_name = gets.chomp
+        puts "Please input a new password:"
+    password = gets.chomp
+        puts "Please verify password:"
+    password_verification = gets.chomp
+       until password_verification == password
+         puts "Not the same password! Please try again:"
+
+         password = gets.chomp
+             puts "Please re-verify password:"
+         password_verification = gets.chomp
+       end
+    puts "Welcome #{first_name} #{last_name}."
+    User.create(first_name: first_name, last_name: last_name, password: password)
+end
+
 def returning(r_input)
   number = User.find(r_input)
   fname = User.find_by(first_name: r_input)
