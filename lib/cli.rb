@@ -74,7 +74,7 @@ end
 def returning_user
   puts "Please enter your first name: "
   first = gets.chomp
-  puts "Please enter your last name. Example: Smith. "
+  puts "Please enter your last name: "
   last = gets.chomp
   puts "Please enter your Password: "
   pass = gets.chomp
@@ -85,8 +85,8 @@ end
 
 
 def verify_person(first, last, pass)
-  find = User.find_by(first_name: first, last_name: last, password: pass)
-  case find
+  where = User.where(first_name: first, last_name: last, password: pass)
+  case where
     when nil
       puts "Please try again."
       puts "Could not verify 1 or more inputs:"
@@ -96,7 +96,7 @@ def verify_person(first, last, pass)
       last = gets.chomp
       puts "Please enter your Password: "
       pass = gets.chomp
-      # find = User.find_by(first_name: first, last_name: last)
+      # where = User.find_by(first_name: first, last_name: last)
       verify_person(first,last, pass)
     else
       # user_info(first, last, pass)
@@ -107,8 +107,8 @@ end
 
 def options_screen
   stars
-  puts "What would you like to do?"
-  puts "Please choose from the following options: "
+  puts "|        What would you like to do?         |"
+  puts "| Please choose from the following options: |"
   puts "1. See current workout programs."
   puts "2. See list of exercises by category."
   puts "3. Add a Workout to your Favorites."
