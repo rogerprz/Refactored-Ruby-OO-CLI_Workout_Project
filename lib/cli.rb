@@ -169,7 +169,11 @@ def options
       a = Workout.all
       a.each_with_index do |workout, index|
         puts "#{index + 1}. #{workout.name}"
+        puts "--- Duration: #{workout.duration}"
+
       end
+      sleep(3)
+      options
     when "2"
     when "3"
     when "4"
@@ -196,17 +200,6 @@ def run
   options
 
 end
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 1955b5bc00ecf4ecd0b979462f02839a2b9da0dc
-
-
-
-  # new_user
-  # returning_user
-
 
 
 
