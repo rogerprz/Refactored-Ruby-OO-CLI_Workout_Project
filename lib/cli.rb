@@ -247,12 +247,27 @@ end
 
 def print_by_category(cat)
   a = Exercise.where(category: cat)
-  a.each_with_index do |exercise, index|
-    puts "#{index + 1}. #{exercise.name.upcase}"
-    puts "--- Sets: #{exercise.sets}"
-    puts "--- Reps: #{exercise.reps}"
-    puts "--- Time: #{exercise.duration}"
-  end
+  # binding.pry
+  case a
+  when []
+    puts "Not a valid option, Please try again: "
+    cat = gets.chomp
+    print_by_category(cat)
+  when nil
+    puts "Not a valid option, Please try again: "
+    cat = gets.chomp
+    print_by_category(cat)
+  when "e"
+    options(user)
+  else
+    a.each_with_index do |exercise, index|
+      puts "#{index + 1}. #{exercise.name.upcase}"
+      puts "--- Sets: #{exercise.sets}"
+      puts "--- Reps: #{exercise.reps}"
+      puts "--- Time: #{exercise.duration}"
+    end
+    sleep(5)
+end
 end
 
 
