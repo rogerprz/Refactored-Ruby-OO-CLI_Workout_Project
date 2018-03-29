@@ -40,12 +40,16 @@ def new_or_returning(choice)
 end
 
 
+
 #give returning users options access
 #give new users option to create new
 #end if they pressed e
 def returning_user(r_input)
-  if r_input == r_input.to_i
+  number = User.find(r_input)
+  fname = User.find_by(first_name: r_input)
+  if r_input == r_input.to_i && r_input == number.id
     user = User.find(r_input)
+
     print " Great to have you back #{user.first_name} #{user.last_name}"
   elsif r_input == r_input.to_s
     user = User.find_by(first_name: r_input)
@@ -61,16 +65,33 @@ def returning_user(r_input)
 end
 def new_user
 
+  case
   puts "Welcome New User! What is your first name?"
+
+  #make sure it is a string
   first_name = gets.chomp
 
+  result = case first_name
+  when String
+  puts "Hi #{first_name}! What is your last name?"
+  when Fixnum
+  puts "Invalid Name! Please provide a real name."
+  else
+  puts 'Invalid Name! Please provide a real name.'
 
+
+  end
+
+
+  #make sure string
   puts "Hi #{first_name}! What is your last name?"
   last_name = gets.chomp
-  puts "What is your weight #{first_name} #{last_name}?"
-  weight = gets.chomp
+  until last_name.class == string
+  puts "Invalid Name! Please provide a real name."
 
-  User.find_or_create_by(first_name: first_name, last_name: last_name, weight: weight)
+
+
+  User.find_or_create_by(first_name: first_name, last_name: last_name)
 
   puts "Welcome #{first_name}"
 
@@ -81,7 +102,7 @@ def options_screen
   puts "What would you like to do?"
   puts "Please choose from the following options: "
   puts "1. See current workout programs."
-  puts "2. Se list of exercises by category."
+  puts "2. See list of exercises by category."
   puts "3. Review your Favorite workouts."
   puts "4. Add a Workout to your Favorites."
   puts "5. Drop/Delete a Workout from your favorites"
@@ -91,11 +112,18 @@ def options_screen
 
 end
 
+
+
+
 # def run
-options_screen
+
   welcome
   input = gets.chomp
   new_or_returning(input)
+  options_screen
+
+
+
   # new_user
   # returning_user
 
