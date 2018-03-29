@@ -48,36 +48,13 @@ end
 
 
 
-
-# def verify_password(full, lookup)
-#
-#   case full
-#
-#   when "#{lookup.first_name} #{lookup.last_name}"
-#     puts "Valid full name."
-#     abort
-#   when "e"
-#     abort
-#   else
-#     puts "Please try again."
-#     puts "Could not verify your name:"
-#     puts "Enter first name: "
-#     first = gets.chomp
-#     puts "Enter last name: "
-#     last = gets.chomp
-#     full ="#{first} #{last}"
-#     lookup = User.find_by(first_name: first,last_name: last)
-#     verify(full, lookup)
-#   end
-# end
-
 def user_info(first, last, pass)
   User.find_by(first_name: first, last_name: last, password: pass)
 
 end
 
 def verify_person(first, last, pass)
-  find = user_info
+  find = User.find_by(first_name: first, last_name: last, password: pass)
   case find
     when nil
       puts "Please try again."
@@ -91,6 +68,7 @@ def verify_person(first, last, pass)
       # find = User.find_by(first_name: first, last_name: last)
       verify_person(first,last, pass)
     else
+      user_info(first, last, pass)
       puts "Valid full name."
   end
 end
@@ -105,14 +83,8 @@ def returning_user
   puts "Please enter your Password: "
   pass = gets.chomp
 
-  # full = "#{first} #{last}"
-  # lookup = User.find_by(first_name: first, last_name: last)
   verify_person(first, last, pass)
-  # verify_person(full,lookup)
-  # user = User.find_by(first_name: first, last_name: last)
 
-  # verify = user.password
-  # verify_password(pass, verify)
 
 end
 
@@ -138,11 +110,6 @@ def new_user
     User.create(first_name: first_name, last_name: last_name, password: password)
 end
 
-
-def goodbye
-  puts "Thank you for stopping by. Goodbye!!!"
-  abort
-end
 
 
 
@@ -183,31 +150,11 @@ def print_by_category(cat)
   end
 end
 
-def verify_workout_name(input)
-  if input == "e"
-    goodbye
-    abort
-  end
-  find = Workout.find_by(name: input)
-  case find
-  when nil
-    puts "We don't have that workout available. "
-    puts "Please select once more."
-    print_workouts
-    input =gets.chomp
-    verify_workout_name(input)
-  when "e"
-    goodbye
-    abort
-  else
-    User.
-    puts "Workout Verfied. Added to your favorites"
 
 
 
-  end
 
-def options
+def options(user_info)
   options_screen
   input = gets.chomp
   case input
@@ -225,7 +172,7 @@ def options
       print_workouts
       puts "Select a workout name: "
       name = gets.chomp
-      verify_workout_name(input)
+      verify_workout_name(input, user_info)
 
 
     when "4"
@@ -242,26 +189,16 @@ def options
       puts "#{w.name.upcase}"
       puts "#{w.duration}"
       puts "#{w.description}"
-
       options
     when "7"
       print_workouts
       puts "What is the name of your workout?"
-
       workout_name = gets.chomp
       verify_workout_name(workout_name)
       category_options_print
       puts "Pick which category:"
       category = gets.chomp
       print_by_category(category)
-
-
-
-
-      print_workouts
-
-
-
     when "8"
 
 
@@ -274,6 +211,38 @@ def options
       options
 
     end
+end
+
+def verify_workout_name(input, user_info)
+  if input == "e"
+    goodbye
+    abort
+  end
+  find = Workout.find_by(name: input)
+  case find
+  when nil
+    puts "We don't have that workout available. "
+    puts "Please select once more."
+    print_workouts
+    input =gets.chomp
+    verify_workout_name(input)
+  when "e"
+    goodbye
+    abort
+  else
+    user_info.workouts << find
+    puts "Workout Verfied. Added to your favorites"
+  end
+end
+
+
+
+def run
+
+  welcome
+  new_or_return
+  options(user_info)
+
 end
 
 def category_options_print
@@ -290,15 +259,10 @@ def category_options_print
 
 end
 
-def run
-
-  welcome
-  new_or_return
-  options
-
+def goodbye
+  puts "Thank you for stopping by. Goodbye!!!"
+  abort
 end
-
-
 
 
 #ICEBOX
@@ -316,4 +280,26 @@ end
 #         verify_user(try_again, verify)
 #     end
 #
+# end
+
+# def verify_password(full, lookup)
+#
+#   case full
+#
+#   when "#{lookup.first_name} #{lookup.last_name}"
+#     puts "Valid full name."
+#     abort
+#   when "e"
+#     abort
+#   else
+#     puts "Please try again."
+#     puts "Could not verify your name:"
+#     puts "Enter first name: "
+#     first = gets.chomp
+#     puts "Enter last name: "
+#     last = gets.chomp
+#     full ="#{first} #{last}"
+#     lookup = User.find_by(first_name: first,last_name: last)
+#     verify(full, lookup)
+#   end
 # end
