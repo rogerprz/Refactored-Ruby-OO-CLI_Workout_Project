@@ -71,10 +71,13 @@ end
 #   end
 # end
 
+def user_info(first, last, pass)
+  User.find_by(first_name: first, last_name: last, password: pass)
 
+end
 
 def verify_person(first, last, pass)
-  find = User.find_by(first_name: first, last_name: last, password: pass)
+  find = user_info
   case find
     when nil
       puts "Please try again."
@@ -150,15 +153,59 @@ def options_screen
   puts "Please choose from the following options: "
   puts "1. See current workout programs."
   puts "2. See list of exercises by category."
-  puts "3. Review your Favorite workouts."
-  puts "4. Add a Workout to your Favorites."
+  puts "3. Add a Workout to your Favorites."
+  puts "4. Review your Favorite workouts."
   puts "5. Drop/Delete a Workout from your favorites"
   puts "6. Create your own Workout Program."
   puts "7. Add exercises to your Workout."
+  puts "8. Remove exercises from your Workout."
   stars
   puts "Choose an option from 1 - 8, e = Exit"
   stars
 end
+
+def print_workouts
+  a = Workout.all
+  a.each_with_index do |workout, index|
+    puts "#{index + 1}. #{workout.name.upcase}"
+    puts "--- Duration: #{workout.duration}"
+
+  end
+end
+
+def print_by_category(cat)
+  a = Exercise.where(category: cat)
+  a.each_with_index do |exercise, index|
+    puts "#{index + 1}. #{exercise.name.upcase}"
+    puts "--- Sets: #{exercise.sets}"
+    puts "--- Reps: #{exercise.reps}"
+    puts "--- Time: #{exercise.duration}"
+  end
+end
+
+def verify_workout_name(input)
+  if input == "e"
+    goodbye
+    abort
+  end
+  find = Workout.find_by(name: input)
+  case find
+  when nil
+    puts "We don't have that workout available. "
+    puts "Please select once more."
+    print_workouts
+    input =gets.chomp
+    verify_workout_name(input)
+  when "e"
+    goodbye
+    abort
+  else
+    User.
+    puts "Workout Verfied. Added to your favorites"
+
+
+
+  end
 
 def options
   options_screen
@@ -166,26 +213,21 @@ def options
   case input
     when "1"
       # binding.pry
-      a = Workout.all
-      a.each_with_index do |workout, index|
-        puts "#{index + 1}. #{workout.name.upcase}"
-        puts "--- Duration: #{workout.duration}"
-
-      end
+      print_workouts
       sleep(3)
       options
     when "2"
-      category_print
+      category_options_print
       cat = gets.chomp
-      a = Exercise.where(category: cat)
-      a.each_with_index do |exercise, index|
-        puts "#{index + 1}. #{exercise.name.upcase}"
-        puts "--- Sets: #{exercise.sets}"
-        puts "--- Reps: #{exercise.reps}"
-        puts "--- Time: #{exercise.duration}"
-      end
+      print_by_category
       options
     when "3"
+      print_workouts
+      puts "Select a workout name: "
+      name = gets.chomp
+      verify_workout_name(input)
+
+
     when "4"
     when "5"
     when "6"
@@ -203,7 +245,26 @@ def options
 
       options
     when "7"
+      print_workouts
+      puts "What is the name of your workout?"
+
+      workout_name = gets.chomp
+      verify_workout_name(workout_name)
+      category_options_print
+      puts "Pick which category:"
+      category = gets.chomp
+      print_by_category(category)
+
+
+
+
+      print_workouts
+
+
+
     when "8"
+
+
     when "e"
       goodbye
     else
@@ -215,7 +276,7 @@ def options
     end
 end
 
-def category_print
+def category_options_print
   puts "----OPTIONS---- "
   puts "** Arms"
   puts "** Chest"
