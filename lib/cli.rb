@@ -7,9 +7,7 @@ require_relative '../lib/models/workout.rb'
 
 
 
-def stars
-  puts "****************************************"
-end
+
 
 def welcome
   puts stars
@@ -217,7 +215,7 @@ def verify_workout_name(id, input, user)
   end
 
   where = Workout.where(id: id, name: input)
-  binding.pry
+  # binding.pry
   case where
   when nil
     print_verify_workout_error
@@ -239,10 +237,7 @@ def verify_workout_name(id, input, user)
   end
 end
 
-def dash_line
-  puts "-----------------------------------------"
 
-end
 def print_verify_workout_error
   dash_line
   puts "We don't have that workout available. "
@@ -287,10 +282,8 @@ end
 end
 
 
-def self.run
-
+def run
   welcome
-
   user = new_or_return
   options(user)
 
@@ -311,12 +304,17 @@ def category_options_print
 
 
 end
+def dash_line
+  puts "-----------------------------------------"
 
+end
 def goodbye
   puts "Thank you for stopping by. Goodbye!!!"
   abort
 end
-
+def stars
+  puts "****************************************"
+end
 
 #ICEBOX
 
