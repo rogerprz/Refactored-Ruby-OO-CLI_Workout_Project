@@ -168,17 +168,40 @@ def options
       # binding.pry
       a = Workout.all
       a.each_with_index do |workout, index|
-        puts "#{index + 1}. #{workout.name}"
+        puts "#{index + 1}. #{workout.name.upcase}"
         puts "--- Duration: #{workout.duration}"
 
       end
       sleep(3)
       options
     when "2"
+      category_print
+      cat = gets.chomp
+      a = Exercise.where(category: cat)
+      a.each_with_index do |exercise, index|
+        puts "#{index + 1}. #{exercise.name.upcase}"
+        puts "--- Sets: #{exercise.sets}"
+        puts "--- Reps: #{exercise.reps}"
+        puts "--- Time: #{exercise.duration}"
+      end
+      options
     when "3"
     when "4"
     when "5"
     when "6"
+      puts "What is your Workout name?"
+      name = gets.chomp
+      puts "How long is your workout?"
+      duration = gets.chomp.to_i
+      puts "Give us a brief description of your workout:"
+      description = gets.chomp
+      w = Workout.create(name: name, duration: duration, description: description)
+      puts "Workout added!"
+      puts "#{w.name.upcase}"
+      puts "#{w.duration}"
+      puts "#{w.description}"
+
+      options
     when "7"
     when "8"
     when "e"
@@ -186,12 +209,25 @@ def options
     else
       puts "Not a valid option lookup choice"
       puts "Please try again: "
+
       options
 
-  end
+    end
 end
 
+def category_print
+  puts "----OPTIONS---- "
+  puts "** Arms"
+  puts "** Chest"
+  puts "** Legs"
+  puts "** Back"
+  puts "** Shoulders"
+  puts "** Cardio"
+  puts "Type your category: "
 
+
+
+end
 
 def run
 
