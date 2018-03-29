@@ -146,15 +146,16 @@ def options(user)
       options(user)
     when "3"
       print_workouts
-      puts "Select a workout name: "
       puts "You can enter 'e' to go back to the main menu"
-      input = gets.chomp
-      if input == "e"
+      puts "Select a workout number: "
+      id = gets.chomp
+      puts "Select Workout name: "
+      input =gets.chomp
+      if input == "e" || id == "e"
          options(user)
        end
       # binding.pry
-      verify_workout_name(input, user)
-      user = user
+      verify_workout_name(id, input, user)
       options(user)
     when "4"
       if user.workouts == [] || user.workouts == nil
@@ -208,23 +209,23 @@ def options(user)
 end
 
 #if it already exists it add it again. need to fix no duplicates.
-def verify_workout_name(input, user)
+def verify_workout_name(id, input, user)
   # binding.pry
-  if input == "e"
+  if input == "e" || id == "e"
     goodbye
     abort
   end
 
-  where = Workout.where(name: input)
+  where = Workout.where(id: id, name: input)
   case find
   when nil
     print_verify_workout_error
     input =gets.chomp
-    verify_workout_name(input, user)
+    verify_workout_name(id, input, user)
   when []
     print_verify_workout_error
     input =gets.chomp
-    verify_workout_name(input, user)
+    verify_workout_name(id, input, user)
   when "e"
     goodbye
     abort
