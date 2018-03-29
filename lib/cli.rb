@@ -41,7 +41,7 @@ def new_or_return
       puts "Not a valid input. Please try again: "
       puts " *** r = return, n = new, e = Exit ***  "
       choice = gets.chomp
-      new_or_return(choice)
+      new_or_return
     end
 
 end
@@ -68,7 +68,7 @@ end
 
 
 def user_info(first, last, pass)
-  User.find_by(first_name: first, last_name: last, password: pass)
+  User.where(first_name: first, last_name: last, password: pass)
 end
 
 def returning_user
@@ -140,7 +140,11 @@ def options(user)
     when "3"
       print_workouts
       puts "Select a workout name: "
+      puts "You can enter 'e' to go back to the main menu"
       input = gets.chomp
+      if input == "e"
+         options(user)
+       end
       # binding.pry
       verify_workout_name(input, user)
       user = user
@@ -173,18 +177,18 @@ def options(user)
       puts "#{w.name.upcase}"
       puts "#{w.duration}"
       puts "#{w.description}"
-      options
+      options(user)
     when "7"
       print_workouts
       puts "What is the name of your workout?"
       workout_name = gets.chomp
-
       category_options_print
       puts "Pick which category:"
       category = gets.chomp
       print_by_category(category)
+      options(user)
     when "8"
-
+      options(user)
 
     when "e"
       goodbye
