@@ -121,10 +121,10 @@ def options_screen
   puts "4. Review your Favorite workouts."
   puts "5. Drop/Delete a Workout from Favorites"
   puts "6. Create your own Workout Program."
-  puts "7. Add exercises to a Workout."
-  puts "8. Update Workout Name. "
+  puts "7. Update Workout Name."
+  # puts "8. Update Workout Name. "
   stars
-  puts "Choose an option from 1 - 8, e = Exit"
+  puts "Choose an option from 1 - 7, e = Exit"
   stars
 end
 
@@ -199,15 +199,6 @@ def options(user)
       options(user)
     when "7"
       print_workouts
-      puts "What is the name of your workout?"
-      workout_name = gets.chomp
-      category_options_print
-      puts "Pick which category:"
-      category = gets.chomp
-      print_by_category(category)
-      options(user)
-    when "8"
-      print_workouts
       puts "You can enter 'e' to go back to the main menu"
       puts "Select a workout number you want to update: "
       id = gets.chomp
@@ -228,8 +219,17 @@ def options(user)
       puts "Not a valid option lookup choice"
       puts "Please try again: "
       options(user)
-
     end
+    # when "8"
+    #   print_workouts
+    #   puts "What is the name of your workout?"
+    #   workout_name = gets.chomp
+    #   category_options_print
+    #   puts "Pick which category:"
+    #   category = gets.chomp
+    #   print_by_category(category)
+    #   options(user)
+    # end
 end
 
 
