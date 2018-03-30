@@ -148,30 +148,36 @@ def options(user)
       puts "You can enter 'e' to go back to the main menu"
       puts "Select a workout number: "
       id = gets.chomp
-      puts "Select Workout name: "
-      input =gets.chomp
-      if input == "e" || id == "e"
+      # puts "Select Workout name: "
+      # input =gets.chomp
+      if id == "e"
          options(user)
        end
       # binding.pry
-      verify_workout_name(id, input, user)
+      verify_workout_name(id, user)
+      sleep(3)
       options(user)
     when "4"
       if user.workouts == [] || user.workouts == nil
         dash_line
+        dash_line
         print "|  No Favorites found. Please add a workout to Favorites  |"
         dash_line
+
         options(user)
       end
       dash_line
       user.workouts.each_with_index do |fav, index|
         # binding.pry
         puts "#{index+1}. #{fav.name}."
+
       end
       dash_line
-      user = user
+      sleep(3)
+      dash_line
       options(user)
     when "5"
+      delete_workout_favorites(user)
     when "6"
       puts "What is your Workout name?"
       name = gets.chomp
@@ -208,29 +214,29 @@ def options(user)
 end
 
 #if it already exists it add it again. need to fix no duplicates.
-def verify_workout_name(id, input, user)
+def verify_workout_name(id, user)
   # binding.pry
-  if input == "e" || id == "e"
+  if id == "e"
     goodbye
     abort
   end
 
-  where = Workout.where(id: id, name: input)
+  where = Workout.where(id: id)
   # binding.pry
   case where
     when nil
       print_verify_workout_error
-      input =gets.chomp
-      verify_workout_name(id, input, user)
+      id = gets.chomp
+      verify_workout_name(id, user)
     when []
       print_verify_workout_error
-      input =gets.chomp
-      verify_workout_name(id, input, user)
+      id = gets.chomp
+      verify_workout_name(id, user)
     when "e"
       goodbye
       abort
     else
-      binding.pry
+      # binding.pry
       user.workouts << where
       dash_line
       puts "Workout Verfied. Added to your favorites"
@@ -239,12 +245,36 @@ def verify_workout_name(id, input, user)
   end
 end
 
+def delete_workout_favorites(user)
+  puts "If you change your mind use 'e' to exit to menu."
+  dash_line
+  puts "Workout ID ||           NAME          |"
+  user.workouts.each do |workout|
+    puts "#{workout.id}            #{workout.name}"
+  end
+  dash_line
+  puts "Select the number that you would like to remove."
+  input = gets.chomp
+  if input == "e"
+    options(user)
+  end
+  # binding.pry
+
+  removed = user.workouts.find(input).destroy
+  puts "Successfully removed workout #{removed.name}"
+  # binding.pry
+  sleep(4)
+  options(user)
+
+end
 
 def print_verify_workout_error
   dash_line
+  print_workouts
+  dash_line
   puts "We don't have that workout available. "
   puts "Please select once more."
-  print_workouts
+  dash_line
 
 end
 
