@@ -363,6 +363,7 @@ def print_workouts
   a.each do |workout|
     puts "#{workout.id}. #{workout.name}"
     puts "--- Duration: #{workout.duration}"
+    puts "###### Description: #{workout.description}."
 
   end
 end
