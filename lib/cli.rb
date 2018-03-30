@@ -115,16 +115,16 @@ def options_screen
   puts "|        What would you like to do?         |"
   puts "| Please choose from the following options: |"
   dash_line
-  puts "1. See current workout programs.            |"
-  puts "2. See list of exercises by category."
-  puts "3. Add a Workout to your Favorites."
-  puts "4. Review your Favorite workouts."
-  puts "5. Drop/Delete a Workout from Favorites"
-  puts "6. Create your own Workout Program."
-  puts "7. Update Workout Name."
+  puts "# 1. See current workout programs.          |"
+  puts "# 2. See list of exercises by category.     |"
+  puts "# 3. Add a Workout to your Favorites.       |"
+  puts "# 4. Review your Favorite workouts.         |"
+  puts "# 5. Drop/Delete a Workout from Favorites   |"
+  puts "# 6. Create your own Workout Program.       |"
+  puts "# 7. Update Workout Name.                   |"
   # puts "8. Update Workout Name. "
   stars
-  puts "Choose an option from 1 - 7, e = Exit"
+  puts "##  Choose an option from 1 - 7, e = Exit  ##"
   stars
   puts "\n"
 end
