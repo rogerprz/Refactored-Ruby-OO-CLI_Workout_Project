@@ -11,15 +11,15 @@ require_relative '../lib/models/workout.rb'
 
 def welcome
   puts stars
-  puts "|                                      |"
-  puts "|***WELCOME TO FLATIRON GET FIT CLI*** |"
-  puts "|                                      |"
+  stars
+  puts "|***  WELCOME TO FLATIRON GET FIT CLI   ***|"
+  stars
   dash_line
-  puts "|Are you a new or returning user?      |"
-  puts "Please select from the following options:"
-  puts "| n = NEW || r = returning || e = exit |"
+  puts "|##  Are you a new or returning user?    ##|"
+  puts "|Please select from the following options: |"
+  puts "|| n = NEW || r = RETURNING || e = EXIT   ||"
   print stars
-  print "Pick an option: "
+  print "|Pick an option:                           |\n"
 end
 
 def new_or_return
@@ -126,6 +126,7 @@ def options_screen
   stars
   puts "Choose an option from 1 - 7, e = Exit"
   stars
+  puts "\n"
 end
 
 
@@ -422,7 +423,7 @@ def category_options_print
 
 end
 def dash_line
-  puts "-----------------------------------------"
+  puts "-"*45
 
 end
 def goodbye
@@ -430,7 +431,7 @@ def goodbye
   abort
 end
 def stars
-  puts "****************************************"
+  puts "*"*45
 end
 
 #ICEBOX
