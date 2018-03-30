@@ -328,7 +328,7 @@ def delete_workout_favorites(id, user)
       # binding.pry
       removed = user.favorites.find_by(workout_id: id)
       removed.destroy
-      puts "Successfully removed workout from favorites!!!"
+      puts "Your workout will be sucessfully deleted next time you log on."
       # binding.pry
       sleep(3)
       options(user)
