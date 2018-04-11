@@ -24,3 +24,5 @@ Built using:
 2. Object Oriented Programming
 3. Classes
 4. Methods
+
+Notes: I took my first original CLI project at Flatiron School and refactored it so it would not use ActiceRecord, but only OO programming. 
